@@ -1,5 +1,5 @@
 # Utilizar una imagen base de Python
-FROM python:3.8-slim
+FROM python:3.9.12-slim
 
 # Establecer el directorio de trabajo
 WORKDIR /app
@@ -14,6 +14,7 @@ RUN python -m venv /env
 RUN /env/bin/pip install --upgrade pip
 RUN /env/bin/pip install -r requirements.txt
 
+
 # Copiar el archivo de datos preprocesados en la carpeta data
 COPY data/quincenas_preprocesadas.csv /app/data/quincenas_preprocesadas.csv
 
@@ -22,6 +23,9 @@ COPY model/lstm_model.h5 /app/model/lstm_model.h5
 
 # Copiar el archivo server.py
 COPY server.py /app/server.py
+
+# Exponer el puerto 5000 para que el contenedor acepte conexiones externas
+EXPOSE 5000
 
 # Establecer el comando para ejecutar el servidor
 CMD ["/env/bin/python", "server.py"]
