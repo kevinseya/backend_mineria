@@ -4,9 +4,10 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import MeanAbsoluteError  # Para custom_objects en el load_model
 from sklearn.preprocessing import LabelEncoder
+from flask_cors import CORS  # Importa CORS
 
 app = Flask(__name__)
-
+CORS(app)
 # ======================================================
 # CARGA DEL MODELO Y CONFIGURACIÓN DEL LABELENCODER
 # ======================================================
