@@ -10,22 +10,25 @@ COPY requirements.txt /app/
 # Crear un entorno virtual dentro del contenedor
 RUN python -m venv /env
 
-# Activar el entorno virtual y luego instalar las dependencias
+# Activar el entorno virtual e instalar las dependencias
 RUN /env/bin/pip install --upgrade pip
 RUN /env/bin/pip install -r requirements.txt
 
+# Copiar el archivo del modelo en la carpeta nuevos_modelos
+COPY nuevos_modelos/modelo_final---10.keras /app/nuevos_modelos/modelo_final---10.keras
 
-# Copiar el archivo de datos preprocesados en la carpeta data
-COPY data/quincenas_preprocesadas.csv /app/data/quincenas_preprocesadas.csv
+# Copiar el archivo scaler para la normalizacion de datos
+COPY nuevos_modelos/scaler.pkl /app/nuevos_modelos/scaler.pkl
 
-# Copiar el archivo del modelo en la carpeta model
-COPY model/lstm_model.h5 /app/model/lstm_model.h5
 
-# Copiar el archivo server.py
-COPY server.py /app/server.py
+# Copiar el archivo api.py
+COPY api.py /app/api.py
 
-# Exponer el puerto 5000 para que el contenedor acepte conexiones externas
-EXPOSE 5000
+# Exponer el puerto 8000 para que el contenedor acepte conexiones externas
+EXPOSE 8000
+
+# Actualizar el PATH para que se use el Python del entorno virtual
+ENV PATH="/env/bin:$PATH"
 
 # Establecer el comando para ejecutar el servidor
-CMD ["/env/bin/python", "server.py"]
+CMD ["python", "api.py"]
