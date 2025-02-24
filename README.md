@@ -11,19 +11,21 @@ Antes de ejecutar el proyecto, asegúrate de tener los siguientes requisitos:
 - pip
 
 ### Dependencias
-- Flask
-- Flask-CORS
+- FastAPI
+- CORS
 - TensorFlow (para el modelo)
 - NumPy
 - Pandas
+- Seaborn
+- Joblib
+- Matplotlib
 
 ## Instalación
 
 1. Clona este repositorio:
 
     ```bash
-    git clone https://tu-repositorio.git
-    cd nombre-del-repositorio
+    git clone (https://github.com/kevinseya/backend_mineria.git)
     ```
 
 2. Crea un entorno virtual (opcional, pero recomendado):
@@ -47,21 +49,23 @@ Antes de ejecutar el proyecto, asegúrate de tener los siguientes requisitos:
 
 ## Estructura del Proyecto
 
-/
-├── app/
-│   ├── data/
-│   │   └── quincenas_preprocesadas.csv
-│   ├── model/
-│   │   └── lstm_model.h5
-│   ├── server.py
-│   ├── requirements.txt
-│   ├── Dockerfile
-│   ├── README.md
-
-- **data/quincenas_preprocesadas.csv**: Contiene los datos de entrada preprocesados para realizar las predicciones.
-- **model/lstm_model.h5**: El modelo de predicción entrenado en formato `.h5`.
-- **server.py**: El servidor Flask que maneja las solicitudes y hace las predicciones utilizando el modelo.
-- **requirements.txt**: Contiene las dependencias necesarias para ejecutar el servidor Flask.
+#data: 
+- Se encuentra los archivos .csv que fueron utilizados para para generar el .csv final que consumira el modelo para entrenarse.
+- Así como también, los scripts .py que fueron utilizados para unir la data extraida de la API Forecast, asi como tambien de los diferentes sitios web para datos económicos
+#nuevos_modelos:
+- Las graficas de resultados del mejor modelo escogido.
+- Script del modelo mejorado LSTM.
+- Script del análisis de correlación de las variables unidas en el .csv
+- Modelo entrenado en formato .keras
+- Normalizador de datos para la entrada de datos a entrenar en modelo en formato .pkl
+#diagrama:
+- Diagrama de flujo de trabajo que hace modelo, integrado con la interfaz y con agente llm para un chatbot que se conecta con la base de datos original
+#api:
+- Api que expone endpoints para el consumo de la interfaz hacia el modelo y su respectiva predicción.
+#Dockerfile:
+- Dockerfile para la dockerización del proyecto, para su posible despliegue.
+#Otros:
+- Mas archivos importantes para el proyecto
 
 ## Docker
 
@@ -75,16 +79,16 @@ Si prefieres ejecutar el proyecto dentro de un contenedor Docker, puedes hacerlo
     sudo docker build -t backend_mineria .
     ```
 
-2. Ejecutar el contenedor, mapeando el puerto 5000 del contenedor al puerto 5000 de la máquina local:
+2. Ejecutar el contenedor, mapeando el puerto 8000 del contenedor al puerto 5000 de la máquina local:
 
     ```bash
-    sudo docker run -p 5000:5000 backend_mineria
+    sudo docker run -p 8000:8000 backend_mineria
     ```
 
 ### Exposición del puerto
 
-El servidor Flask está configurado para escuchar en el puerto `5000`. Para que el servidor sea accesible fuera del contenedor, asegúrate de que esté configurado para escuchar en **0.0.0.0** en lugar de **127.0.0.1** (localhost). Esto se configura en el archivo `server.py`:
+El servidor FastAPI está configurado para escuchar en el puerto `8000`. Para que el servidor sea accesible fuera del contenedor, asegúrate de que esté configurado para escuchar en **0.0.0.0** en lugar de **127.0.0.1** (localhost). Esto se configura en el archivo `api.py`:
 
 ```python
-app.run(host="0.0.0.0", port=5000)
+app.run(host="0.0.0.0", port=8000)
 ```
