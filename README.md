@@ -49,22 +49,27 @@ Antes de ejecutar el proyecto, asegúrate de tener los siguientes requisitos:
 
 ## Estructura del Proyecto
 
-#data: 
+###data: 
 - Se encuentra los archivos .csv que fueron utilizados para para generar el .csv final que consumira el modelo para entrenarse.
 - Así como también, los scripts .py que fueron utilizados para unir la data extraida de la API Forecast, asi como tambien de los diferentes sitios web para datos económicos
-#nuevos_modelos:
+  
+###nuevos_modelos:
 - Las graficas de resultados del mejor modelo escogido.
 - Script del modelo mejorado LSTM.
 - Script del análisis de correlación de las variables unidas en el .csv
 - Modelo entrenado en formato .keras
 - Normalizador de datos para la entrada de datos a entrenar en modelo en formato .pkl
-#diagrama:
+  
+###diagrama:
 - Diagrama de flujo de trabajo que hace modelo, integrado con la interfaz y con agente llm para un chatbot que se conecta con la base de datos original
-#api:
+  
+###api:
 - Api que expone endpoints para el consumo de la interfaz hacia el modelo y su respectiva predicción.
-#Dockerfile:
+
+###Dockerfile:
 - Dockerfile para la dockerización del proyecto, para su posible despliegue.
-#Otros:
+  
+###Otros:
 - Mas archivos importantes para el proyecto
 
 ## Docker
